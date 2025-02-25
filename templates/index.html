@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - My Blog{% endblock %}
+
+{% block content %}
+  <div style="margin-bottom: 20px;">
+    {% if session.get('username') %}
+      <a href="{{ url_for('create') }}"><button>Create Post</button></a>
+    {% else %}
+      <a href="{{ url_for('login', next=url_for('create')) }}"><button>Create Post</button></a>
+    {% endif %}
+  </div>
+  
+  {% for post in posts %}
+    <div class="post" style="border-bottom: 1px solid var(--button-bg); padding: 20px 0; margin-bottom: 20px;">
+      <div class="content" style="font-size: 16px; line-height: 1.6;">
+        {{ post['content'] | markdown | safe }}
+      </div>
+      <!-- Display multiple images if available -->
+      {% for image in post['images'] | fromjson %}
+        <img src="{{ image }}" alt="Post Image" style="max-width: 100%; height: auto; margin-top: 10px; border-radius: 4px;">
+      {% endfor %}
+      <!-- Date and username at bottom right -->
+      <div class="align-right" style="font-size: 12px; color: var(--text-color); margin-top: 10px;">
+        {{ post['timestamp'] }} by {{ post['username'] }}
+      </div>
+      <!-- Display like count above the buttons -->
+      <div style="font-size: 14px; margin-top: 5px;">
+        Likes: {{ post['likes'] }}
+      </div>
+      <!-- Like and Delete buttons aligned to left -->
+      <div style="display: flex; justify-content: flex-start; gap: 10px; margin-top: 5px;">
+        <form action="{{ url_for('like', post_id=post['id']) }}" method="post">
+          <button type="submit">Like</button>
+        </form>
+        {% if session.get('username') == post['username'] %}
+          <form action="{{ url_for('delete', post_id=post['id']) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');">
+            <button type="submit" style="background: #e53935; color: #fff;">Delete</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
