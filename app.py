@@ -147,10 +147,6 @@ def login():
             flash("Invalid credentials, please try again.")
     return render_template('login.html', next=next_page)
 
-if __name__ == '__main__':
-    app.run(debug=False)
-
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
