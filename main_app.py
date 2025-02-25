@@ -5,11 +5,12 @@ import base64
 import markdown
 import json
 from flask import jsonify
+from datetime import timedelta
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Change this for production
+app.secret_key = 'e4f3b2d1a9c8e7f60123456789abcdef0123456789abcdef0123456789abcdef'  # Change this for production
 
 DATABASE = 'posts.db'
 
@@ -86,7 +87,7 @@ def create():
                 images.append(image_data)
         images_json = json.dumps(images) if images else None
 
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        timestamp = datetime.now().strftime('%d-%m-%Y ')
         username = session['username']
         conn = get_db_connection()
         conn.execute(
@@ -138,6 +139,7 @@ def login():
         conn.close()
         if user and check_password_hash(user['password'], password):
             session['username'] = username
+            session.permanent = True  # Make the session persistent
             flash("Logged in successfully!")
             # Get the "next" destination from the hidden field.
             next_dest = request.form.get('next')
@@ -148,6 +150,7 @@ def login():
         else:
             flash("Invalid credentials, please try again.")
     return render_template('login.html', next=next_page)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -198,4 +201,5 @@ def load_posts():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.permanent_session_lifetime = timedelta(days=30)
+    app.run(debug=False)
