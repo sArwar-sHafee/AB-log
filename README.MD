@@ -76,7 +76,7 @@ The application will be available at http://127.0.0.1:5000/
 
 ### Deployment
 
-This application can be deployed on free hosting services like GitHub Pages, PythonAnywhere, or Render.
+This application was deployed on free hosting services PythonAnywhere.
 
 you will get it :
 
