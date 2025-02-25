@@ -17,6 +17,7 @@ This is a simple blog application built with Flask and SQLite. The app allows us
 
 ## Project Structure
 
+```
 AB-log/
 ├── app.py                   # Main Flask application
 ├── posts.db                 # SQLite database (auto-created)
@@ -32,7 +33,7 @@ AB-log/
     ├── create.html          # Create new post page
     ├── login.html           # Login page
     ├── register.html        # Registration page
-
+```
 
 ## Getting Started
 
@@ -69,10 +70,23 @@ AB-log/
     python app.py
     ```
 
-5. **License:**
+The application will be available at http://127.0.0.1:5000/
+
+---
+
+### Deployment
+
+This application can be deployed on free hosting services like GitHub Pages, PythonAnywhere, or Render.
+
+you will get it :
+
+<https://shafeeblog.pythonanywhere.com/>
+
+### License
 
 This project is open-source and free to use.
 
-6. **Author:**
+### Author
 
 Sarwar Shafee
+[*Quazi Sarwar Muhtaseem*](https://github.com/sArwar-sHafee/)
