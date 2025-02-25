@@ -1,4 +1,4 @@
-# Flask Blog Application
+# Blog Application
 
 This is a simple blog application built with Flask and SQLite. The app allows users to register, log in, create posts (with Markdown support and multiple images), like posts, and delete their own posts. It also features a dark/light theme toggle with an attractive UI.
 
@@ -89,4 +89,5 @@ This project is open-source and free to use.
 ### Author
 
 Sarwar Shafee
+
 [*Quazi Sarwar Muhtaseem*](https://github.com/sArwar-sHafee/)
