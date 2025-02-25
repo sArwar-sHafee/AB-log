@@ -74,7 +74,7 @@ The application will be available at http://127.0.0.1:5000/
 
 ---
 
-### Deployment
+## Deployment
 
 This application was deployed on free hosting services PythonAnywhere.
 
@@ -82,11 +82,11 @@ you will get it :
 
 <https://shafeeblog.pythonanywhere.com/>
 
-### License
+## License
 
 This project is open-source and free to use.
 
-### Author
+## Author
 
 Sarwar Shafee
 
