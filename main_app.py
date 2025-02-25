@@ -4,6 +4,8 @@ from datetime import datetime
 import base64
 import markdown
 import json
+from flask import jsonify
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -169,6 +171,31 @@ def logout():
     session.pop('username', None)
     flash("Logged out successfully!")
     return redirect(url_for('index'))
+
+@app.route('/load_posts')
+def load_posts():
+    # Get the offset (default to 0) from the query parameters.
+    offset = request.args.get('offset', 0, type=int)
+    limit = 10  # Number of posts per batch
+    conn = get_db_connection()
+    posts = conn.execute(
+        'SELECT * FROM posts ORDER BY id DESC LIMIT ? OFFSET ?', (limit, offset)
+    ).fetchall()
+    conn.close()
+
+    # Convert the posts to a list of dictionaries
+    posts_list = []
+    for post in posts:
+        posts_list.append({
+            'id': post['id'],
+            'timestamp': post['timestamp'],
+            'content': post['content'],
+            'images': post['images'],  # This is stored as JSON in the DB
+            'username': post['username'],
+            'likes': post['likes']
+        })
+    return jsonify(posts_list)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
